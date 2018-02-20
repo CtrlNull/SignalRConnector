@@ -12,7 +12,17 @@ namespace SignalRDesktop.Hubs
     {
         public void HelloSignalR()
         {
-            this.Clients.All.helloClient("Hello !");
+            this.Clients.Group("name");
+        }
+
+        public void JoinRoom(string name)
+        {
+            this.Groups.Add(this.Context.ConnectionId, name);
+        }
+
+        public void LeaveRoom(string name)
+        {
+            this.Groups.Remove(this.Context.ConnectionId, name);
         }
     }
 }
