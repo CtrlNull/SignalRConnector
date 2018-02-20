@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ClientOne Communication</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.7/angular-material.min.css">
+
+</head>
+<body ng-app="ScaleCrud">
+    <div ng-controller="ScaleCrudController as c">
+        <div class="container-fluid" id="navbar">
+            <h1>SignalR Connector Alpha v.1</h1>
+        </div>
+        <div class="container-fluid" id="ScaleBar">
+            <h3>Scale Data</h3>
+        </div>
+        <div id="SignalRData">
+            <div class="container">
+                <div class="row">
+                    <!-- Drop Box One -->
+                    <div class="col-md-3">
+                        <p>Select Ingredient</p>
+                        <select ng-model="c.colorOptions">
+                            <option value="optionRed" class="red">Red</option>
+                            <option value="optionBlue" class="blue">Blue</option>
+                            <option value="optionMetallicSilver" class="metallicSilver">Metallic Silver</option>
+                            <option value="optionDarBlue" class="darkblue">Dark blue</option>
+                        </select>
+                    </div>
+                    <!-- Drop Box Teo -->
+                    <div class="col-md-3">
+                        <p>Not in Use</p>
+                        <select ng-model="c.nothing">
+                            <option class="red">Red</option>
+                            <option class="blue">Blue</option>
+                            <option class="metallicSilver">Metallic Silver</option>
+                            <option class="darkblue">Dark blue</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Progress bar Box -->
+            <div class="container col-lg-8" id="weightBox">
+                <div class="col-md-3">
+                    <p>Scale Weight</p>
+                </div>
+                <div class="row col-lg">
+                    <!-- Weight Button -->
+                    <div class="col-lg-2">
+                        <button class="btn btn-primary" ng-click="c.btnWeight()">Get Weight</button>
+                    </div>
+                    <!-- Progress bar -->
+                    <div class="col-lg-6 progress" id="progressBar">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <!-- Weight Incoming Data -->
+                <div id="weightNumber">
+                    <p>
+                        Weight:
+                        <span ng-model="weightAmount" id="weightAmount">{{c.weightAmount}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="container">
+                <h3>SignalR Connection Status</h3>
+                <div>
+                    <!-- SignalR Status Data -->
+                    <p>Status: <span id="onlineOffline"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CDN's -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+
+    <!-- Local -->
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="signalr/hubs"></script>
+    <script src="Scripts/main.js"></script>
+    <!--      -->
+
+    <script>
+        var chat = $.connection.hello;
+
+        chat.client.helloClient = function (str) {
+            alert(str);
+        }
+
+        $.connection.hub.start().done(function () {
+            chat.server.helloSignalR();
+        });
+    </script>
+
+</body>
+</html>
