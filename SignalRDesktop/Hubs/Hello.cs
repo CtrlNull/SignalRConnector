@@ -7,6 +7,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace SignalRDesktop.Hubs
 {
+    [HubName("ConnectorHub")]
     public class Hello : Hub
     {
         public void HelloSignalR()
