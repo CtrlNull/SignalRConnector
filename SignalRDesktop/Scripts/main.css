@@ -24,3 +24,15 @@
 #weightNumber {
     margin-left: 150px;
 }
+#connectionContainer {
+    margin-top: 5px;
+}
+#connectionHeader {
+    margin-top: 5px;
+}
+#connectionButton {
+    margin-top: 5px;
+}
+#connectionStatus {
+    margin-top: 5px;
+}

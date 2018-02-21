@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>ClientOne Communication</title>
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link href="Scripts/main.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.7/angular-material.min.css">
 
@@ -19,7 +19,7 @@
         <div id="SignalRData">
             <div class="container">
                 <div class="row">
-                    <!-- Drop Box One -->
+                    <!-- Drop Box Color Option-->
                     <div class="col-md-3">
                         <p>Select Ingredient</p>
                         <select ng-model="c.colorOptions">
@@ -29,15 +29,22 @@
                             <option value="optionDarBlue" class="darkblue">Dark blue</option>
                         </select>
                     </div>
-                    <!-- Drop Box Teo -->
+                    <!-- Drop Down Sending Command -->
                     <div class="col-md-3">
-                        <p>Not in Use</p>
-                        <select ng-model="c.nothing">
-                            <option class="red">Red</option>
-                            <option class="blue">Blue</option>
-                            <option class="metallicSilver">Metallic Silver</option>
-                            <option class="darkblue">Dark blue</option>
+                        <p>Select Command</p>
+                        <select ng-model="c.commandOptions">
+                            <option value="resetTare" class="resetTare">Reset Tare</option>
+                            <option value="setTare" class="SetTare">Set Tare</option>
                         </select>
+                    </div>
+                    <!-- Set Require Weight -->
+                    <div class="col-md-3">
+                        <p>Set Required Weight</p>
+                        <input type="number" ng-model="c.setReqWeight" ng-value ="reqWeight" required />
+                        <span class="error" ng-show="myForm.input.$error.number">
+                            Not valid number!
+                        </span>
+                        <div>{{c.setReqWeight}}</div>
                     </div>
                 </div>
             </div>
@@ -65,11 +72,16 @@
                     </p>
                 </div>
             </div>
-            <div class="container">
-                <h3>SignalR Connection Status</h3>
+            <!-- Connect to SignalR Server (data) -->
+            <div class="container" id="connectionContainer">
+                <h3 id="connectionHeader">SignalR Connection Status</h3>
                 <div>
                     <!-- SignalR Status Data -->
-                    <p>Status: <span id="onlineOffline"></span></p>
+                    <button class="btn btn-danger" ng-click="c.btnConnect()" id="connectionButton">Connect</button>
+                    <p id="connectionStatus">Status: <span id="onlineOffline"></span></p>
+                    <input id="message" placeholder="Message" ng-model="c.inputMessage"/>
+                    <button id="sendButton" ng-click="c.btnSend()">Send</button>
+                    <p id="SignalRData"></p>
                 </div>
             </div>
         </div>
@@ -86,18 +98,5 @@
     <script src="signalr/hubs"></script>
     <script src="Scripts/main.js"></script>
     <!--      -->
-
-    <script>
-        var chat = $.connection.hello;
-
-        chat.client.helloClient = function (str) {
-            alert(str);
-        }
-
-        $.connection.hub.start().done(function () {
-            chat.server.helloSignalR();
-        });
-    </script>
-
 </body>
 </html>
