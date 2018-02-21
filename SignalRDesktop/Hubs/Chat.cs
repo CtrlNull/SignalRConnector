@@ -12,7 +12,7 @@ namespace SignalRDesktop.Hubs
     {
         public void SendMessage(string username, string message)
         {
-            Clients.All.RecieveMessage(username, message);
+            Clients.All.recieveMessage(username, message);
         }
     }
 }
